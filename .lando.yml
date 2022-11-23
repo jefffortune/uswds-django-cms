@@ -1,0 +1,94 @@
+name: uswds-djangocms
+
+env_file:
+  - .env
+
+proxy:
+  appserver:
+    - 'uswds-djangocms.lndo.site'
+  adminer:
+    - 'adminer.uswds-djangocms.lndo.site'
+
+services:
+  appserver:
+    type: python:3.9
+    command:
+      - su -c 'python /app/app/manage.py runserver 0.0.0.0:80' www-data
+    build:
+      - pip install --upgrade pip
+      - pip install -r requirements.txt 
+    scanner: true
+    overrides:
+      environment:
+        PYTHONPATH: "/app"
+        DJANGO_SETTINGS_MODULE: "app.core.settings"
+    portforward: true
+  database:
+    type: postgres:12
+    portforward: true
+  adminer:
+    type: compose
+    services:
+      image: dehy/adminer
+      command: /bin/s6-svscan /etc/services.d
+    portforward: true
+  node:
+    type: node:16
+
+tooling:
+  'db-export [file]':
+    service: :host
+    description: Exports database from a database service to a file
+    cmd: /helpers/sql-export.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      stdout:
+        description: Dump database to stdout
+  'db-import <file>':
+    service: :host
+    description: Imports a dump file into a database service
+    cmd: /helpers/sql-import.sh
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      no-wipe:
+        description: Do not destroy the existing database before an import
+        boolean: true
+  django-admin:
+    description: Used for django-admin <commands>
+    cmd: django-admin
+    service: appserver
+  manage:
+    cmd: python app/manage.py
+    description: Used for manage.py <commands>
+    service: appserver
+  node:
+    description: Used for node <commands>
+    service: node
+  npm:
+    description: Used for npm <commands>
+    service: node
+  pip:
+    description: Used for pip <commands>
+    service: appserver
+    cmd: pip
+  pip-install:
+    description: Install python 
+    cmd: pip install -r requirements.txt
+    service: appserver
+  psql:
+    description: Used for psql <commands>
+    cmd: psql -U postgres
+    service: database
+  python:
+    description: Used for python <commands>
+    cmd: python
+    service: appserver

@@ -1,0 +1,73 @@
+{% load cms_tags menu_tags sekizai_tags static i18n %}
+{% spaceless %}
+    <!DOCTYPE html>
+    <html lang="{{ LANGUAGE_CODE }}">
+        <head>
+            <meta charset="utf-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+            <meta name="viewport"
+                  content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+            {% block meta %}
+                <meta name="description" content="{% page_attribute meta_description %}"/>
+                <meta property="og:type" content="website"/>
+                <meta property="og:title" content="{% page_attribute "page_title" %}"/>
+                <meta property="og:description"
+                      content="{% page_attribute meta_description %}"/>
+            {% endblock meta %}
+            {% block canonical_url %}
+                <link rel="canonical" href="{{ request.build_absolute_uri }}"/>
+                <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+            {% endblock canonical_url %}
+            {% block fb_meta %}
+            {% endblock fb_meta %}
+            <title>
+                {% block title %}
+                    {% page_attribute "page_title" %}
+                {% endblock %}
+            </title>
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.3.0/css/uswds.min.css"
+                  integrity="sha512-wJmnl3TI4gk0aH6Hc7ey6Kg6DLACYIBpcCYlr3cZhnL5KqRnuJT9wOdtXSvCjB2fWYDM2q40Zr4XRB6Km6Xe+Q=="
+                  crossorigin="anonymous"
+                  referrerpolicy="no-referrer"/>
+            {% block base_css %}{% endblock %}
+        {% endspaceless %}
+        {% render_block 'css' %}
+        {% spaceless %}
+            {% block page_head %}{% endblock %}
+        </head>
+        <body {% block body_attrs %}{% endblock %}>
+        {% endspaceless %}
+        {% cms_toolbar %}
+        {% spaceless %}
+            {% block navbar %}{% endblock %}
+            {% block content %}
+                {% include "global/usa-banner.html" %}
+                <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+                {% include "global/usa-header.html" %}
+                <div class="usa-overlay"></div>
+                <main>
+                    {% placeholder "content" %}
+                </main>
+                <footer>
+                    {% comment %} {% include "global/footer.html" %} {% endcomment %}
+                    {% static_placeholder 'footer' %}
+                </footer>
+            {% endblock content %}
+            {% block base_js %}{% endblock %}
+        {% endspaceless %}
+        {% render_block 'js' %}
+        {% spaceless %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.3.0/js/uswds.min.js"
+                    integrity="sha512-5evXEbdVxglr+T1YGWtNgvzqYRrNp3kMw4WKhjZ5zQMyhrxtxge9kgkSshCyWkw47VRsXx7yhmcHRKcxHPFhFw=="
+                    crossorigin="anonymous"
+                    referrerpolicy="no-referrer"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/uswds/3.3.0/js/uswds-init.min.js"
+                    integrity="sha512-O4/iaC7XNMEYqktWqYtH6Rg++++GZAdUMITJVzu0D1X4ckQyXHJOoC4SC4Ivwsr8YMTjhSnDxem0Ac62IQuG1w=="
+                    crossorigin="anonymous"
+                    referrerpolicy="no-referrer"></script>
+            {% block end_js %}{% endblock %}
+            {% block bottom_css %}{% endblock %}
+        </body>
+    </html>
+{% endspaceless %}

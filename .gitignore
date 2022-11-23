@@ -1,0 +1,22 @@
+# Python
+*.pyc
+*.pyo
+__pycache__
+db.sqlite3
+
+# Django
+/staticfiles_collected/
+
+/backups
+
+
+# OS-specific patterns - add your own here
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.env
+.idea/
+.vscode/
+/app/media/
