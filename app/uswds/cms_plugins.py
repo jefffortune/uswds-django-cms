@@ -17,7 +17,7 @@ from .models import (
 
 class SiteFooterAgencyMenuLinksInlineAdmin(admin.StackedInline):
     model = SiteFooterAgencyMenuLinks
-    extra = 0
+    extra = 1
 
 
 # Create your models here.
@@ -32,6 +32,10 @@ class SiteFooterAgencyPlugin(CMSPluginBase):
     
     def render(self, context, instance, placeholder):
         context = super(SiteFooterAgencyPlugin, self).render(context, instance, placeholder)
+        items = instance.footer_agency_menu_link.all()
+        context.update({
+            'items': items,
+        })
         return context
     
     def __unicode__(self):

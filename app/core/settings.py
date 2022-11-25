@@ -74,9 +74,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Django-cms Apps
     'cms',
-    'django_extensions',
+    # 'django_extensions',
     # 'djangocms_alias',
-    'djangocms_frontend',
+    # 'djangocms_frontend',
     # Leaving these incase they fit a use case down the line.
     # 'djangocms_frontend.contrib.accordion',
     # 'djangocms_frontend.contrib.alert',
@@ -102,9 +102,9 @@ INSTALLED_APPS = [
     'menus',
     'parler',
     'sekizai',
-    'storages',
+    # 'storages',
     'treebeard',
-    # 'adminsortable2',
+    'adminsortable2',
     # Current Applications
     'core',
     'uswds',
