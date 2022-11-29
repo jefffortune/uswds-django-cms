@@ -62,6 +62,12 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     'SECURE_HSTS_INCLUDE_SUBDOMAINS', False)
 
 INSTALLED_APPS = [
+    # Current Applications
+    'core',
+    'uswds',
+    'uswds.contrib.footer.uswds_footer_agency',
+    'uswds.contrib.footer.uswds_footer_ribbon',
+    'uswds.contrib.footer.uswds_footer_social',
     'djangocms_admin_style',
     # Django Apps
     'django.contrib.admin',
@@ -76,7 +82,7 @@ INSTALLED_APPS = [
     'cms',
     # 'django_extensions',
     # 'djangocms_alias',
-    # 'djangocms_frontend',
+    'djangocms_frontend',
     # Leaving these incase they fit a use case down the line.
     # 'djangocms_frontend.contrib.accordion',
     # 'djangocms_frontend.contrib.alert',
@@ -93,7 +99,7 @@ INSTALLED_APPS = [
     # 'djangocms_frontend.contrib.navigation',
     # 'djangocms_frontend.contrib.tabs',
     # 'djangocms_frontend.contrib.utilities',
-    'djangocms_icon',
+    # 'djangocms_icon', # has a good inline ckeditor plugin example.
     # 'djangocms_pageadmin',  # remove this if you'd like the traditional CMS page tree
     'djangocms_text_ckeditor',
     # Community Django Packages
@@ -105,9 +111,6 @@ INSTALLED_APPS = [
     # 'storages',
     'treebeard',
     'adminsortable2',
-    # Current Applications
-    'core',
-    'uswds',
 ]
 MIDDLEWARE = [
     'cms.middleware.utils.ApphookReloadMiddleware',
@@ -133,6 +136,30 @@ DATABASE_ENGINE = env(
     'DATABASE_ENGINE',
     'django.db.backends.postgresql'
 )
+
+CKEDITOR_SETTINGS = {
+    'default': {
+        'toolbar': 'Basic',
+        'toolbar_Basic': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    },
+    'language': '{{ language }}',
+    'toolbar_CMS': [
+        ['Undo', 'Redo'],
+        ['Format'],
+        ['Bold', 'Italic', 'Underline'],
+        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight','JustifyBlock'],
+        ['Link', 'Unlink'],
+        ['RemoveFormat', 'Source']
+    ],
+    # 'skin': 'moono-lisa',
+    'skin': 'office2013',
+}
+
 DATABASE_HOST = env('DATABASE_HOST')
 DATABASE_PORT = env('DATABASE_PORT')
 DATABASE_USER = env('DATABASE_USER')

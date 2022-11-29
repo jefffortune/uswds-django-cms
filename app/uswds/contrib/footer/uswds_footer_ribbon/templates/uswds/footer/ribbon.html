@@ -1,0 +1,24 @@
+{% load cms_tags static thumbnail %}
+<div class="usa-footer__primary-section">
+    <nav class="usa-footer__nav" aria-label="Footer navigation">
+        <ul class="grid-row grid-gap">
+            {% for link in instance.footer_ribbon_link.all %}
+                <li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content">
+                    {% if link.is_external %}
+                        <a
+                            href="{{ link.external_url }}"
+                            class="usa-footer__primary-link usa-link--external"
+                        >
+                    {% else %}
+                        <a
+                            href="{{ link.internal.get_absolute_url }}"
+                            class="usa-footer__primary-link"
+                        >
+                    {% endif %}
+                    {{ link.link_title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</div>

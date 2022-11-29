@@ -37,6 +37,7 @@ django==3.2
     #   django-treebeard
     #   djangocms-frontend
     #   easy-thumbnails
+django-admin-sortable2==1.0.4
 django-appconf==1.0.5
     # via django-select2
 django-classy-tags==3.0.1

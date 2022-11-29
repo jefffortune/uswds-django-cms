@@ -49,8 +49,10 @@
                 <main>
                     {% placeholder "content" %}
                 </main>
-                <footer>
-                    {% comment %} {% include "global/footer.html" %} {% endcomment %}
+                <footer class="usa-footer">
+                    <div class="grid-container usa-footer__return-to-top">
+                        <a href="#">Return to top</a>
+                    </div>
                     {% static_placeholder "footer" %}
                 </footer>
             {% endblock content %}
