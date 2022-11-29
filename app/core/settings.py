@@ -142,7 +142,8 @@ CKEDITOR_SETTINGS = {
         'toolbar': 'Basic',
         'toolbar_Basic': [
             ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
+                'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
             ['RemoveFormat', 'Source']
         ]
@@ -152,7 +153,8 @@ CKEDITOR_SETTINGS = {
         ['Undo', 'Redo'],
         ['Format'],
         ['Bold', 'Italic', 'Underline'],
-        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight','JustifyBlock'],
+        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
+            'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
         ['Link', 'Unlink'],
         ['RemoveFormat', 'Source']
     ],
@@ -335,7 +337,7 @@ CMS_PLACEHOLDER_CONF = {}
 
 # ***** DEBUG TOOLBAR *****
 
-DEBUG_TOOLBAR = DEBUG and env.bool('DEBUG_TOOLBAR', 'no')
+DEBUG_TOOLBAR = DEBUG and env.bool('DEBUG_TOOLBAR', False)
 
 if DEBUG_TOOLBAR:
     INTERNAL_IPS = [
