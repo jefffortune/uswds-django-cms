@@ -1,0 +1,32 @@
+<section class="usa-hero" aria-label="Introduction">
+    <div class="grid-container">
+        <div class="display-flex flex-column {% if instance.align_support == 'support-left' %}flex-align-start{% else %}flex-align-end{% endif %} margin-top-3">
+            <div class="usa-hero__callout">
+                <h1 class="usa-hero__heading">
+                    {% if instance.title_prefix %}
+                        <span class="usa-hero__heading--alt">
+                            {{ instance.title_prefix }}
+                        </span>
+                    {% endif %}
+                    {{ instance.title }}
+                </h1>
+                <p>{{ support }}</p>
+                {% for link in instance.uswds_cta_link.all %}
+                    {% if link.is_external %}
+                        <a
+                            href="{{ link.external_url }}"
+                            class="usa-button usa-link--external"
+                        >
+                    {% else %}
+                        <a
+                            href="{{ link.internal.get_absolute_url }}"
+                            class="usa-button"
+                        >
+                    {% endif %}
+                {{ link.link_title }}
+            </a>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

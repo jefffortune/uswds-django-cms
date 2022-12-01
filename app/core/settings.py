@@ -61,10 +61,29 @@ SECURE_HSTS_SECONDS = env.int('SECURE_HSTS_SECONDS', 31536000)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     'SECURE_HSTS_INCLUDE_SUBDOMAINS', False)
 
+MIDDLEWARE = [
+    'cms.middleware.utils.ApphookReloadMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware',
+]
 INSTALLED_APPS = [
     # Current Applications
     'core',
     'uswds',
+    'uswds.contrib.content.uswds_cards',
+    'uswds.contrib.content.uswds_cta',
+    'uswds.contrib.content.uswds_hero',
     'uswds.contrib.footer.uswds_footer_agency',
     'uswds.contrib.footer.uswds_footer_ribbon',
     'uswds.contrib.footer.uswds_footer_social',
@@ -112,22 +131,6 @@ INSTALLED_APPS = [
     'treebeard',
     'adminsortable2',
 ]
-MIDDLEWARE = [
-    'cms.middleware.utils.ApphookReloadMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'cms.middleware.user.CurrentUserMiddleware',
-    'cms.middleware.page.CurrentPageMiddleware',
-    'cms.middleware.toolbar.ToolbarMiddleware',
-    'cms.middleware.language.LanguageCookieMiddleware',
-]
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -158,8 +161,16 @@ CKEDITOR_SETTINGS = {
         ['Link', 'Unlink'],
         ['RemoveFormat', 'Source']
     ],
-    # 'skin': 'moono-lisa',
-    'skin': 'office2013',
+    'skin': 'moono-lisa',
+}
+
+CKEDITOR_SETTINGS_BASIC_TEXT = {
+    'language': '{{ language }}',
+    'toolbar_HTMLField': [
+        ['Undo', 'Redo'],
+        ['Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+    ],
+    'skin': 'moono-lisa',
 }
 
 DATABASE_HOST = env('DATABASE_HOST')
@@ -303,7 +314,7 @@ TEMPLATES = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ***** CMS *****
-CMS_CONFIRM_VERSION4 = True
+# CMS_CONFIRM_VERSION4 = True
 CMS_PAGE_CACHE = True
 CMS_PLUGIN_CACHE = True
 
@@ -337,7 +348,7 @@ CMS_PLACEHOLDER_CONF = {}
 
 # ***** DEBUG TOOLBAR *****
 
-DEBUG_TOOLBAR = DEBUG and env.bool('DEBUG_TOOLBAR', False)
+DEBUG_TOOLBAR = DEBUG and env.bool('DEBUG_TOOLBAR', 0)
 
 if DEBUG_TOOLBAR:
     INTERNAL_IPS = [

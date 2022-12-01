@@ -1,0 +1,27 @@
+<section class="grid-container usa-section">
+    <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-4">
+            <h2 class="font-heading-xl margin-top-0 tablet:margin-bottom-0">{{ instance.title }}</h2>
+            <div class="display-flex flex-column flex-align-start margin-top-3">
+            {% for link in instance.uswds_cta_link.all %}
+                {% if link.is_external %}
+                    <a
+                        href="{{ link.external_url }}"
+                        class="usa-button usa-link--external"
+                    >
+                {% else %}
+                    <a
+                        href="{{ link.internal.get_absolute_url }}"
+                        class="usa-button"
+                    >
+                {% endif %}
+            {{ link.link_title }}
+            </a>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="tablet:grid-col-8 usa-prose">
+            {{ instance.content }}
+        </div>
+    </div>
+</section>

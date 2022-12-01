@@ -19,6 +19,9 @@ class SiteFooterRibbonLinks(CMSPlugin):
     def __str__(self):
         return "Site Footer - Ribbon"
 
+    class Meta:
+        verbose_name = _("Site Footer - Ribbon")
+
 
 class SiteFooterRibbonLink(USWDSLink):
     footer_ribbon_link = models.ForeignKey(

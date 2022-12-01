@@ -1,0 +1,23 @@
+<section id="test-section-id" class="usa-section">
+    <div class="grid-container">
+        <h2 class="font-heading-xl margin-y-0">{{ instance.title }}</h2>
+        <div class="usa-intro">
+            {{ instance.content }}
+        </div>
+        {% for link in instance.uswds_cta_link.all %}
+            {% if link.is_external %}
+                <a
+                        href="{{ link.external_url }}"
+                        class="usa-button usa-button--big usa-link--external"
+                >
+            {% else %}
+                <a
+                        href="{{ link.internal.get_absolute_url }}"
+                        class="usa-button usa-button--big"
+                >
+            {% endif %}
+        {{ link.link_title }}
+        </a>
+        {% endfor %}
+    </div>
+</section>

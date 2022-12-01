@@ -1,0 +1,37 @@
+{% load thumbnail %}
+<li class="usa-card {{ css_class }} usa-card--header-first">
+    <div class="usa-card__container">
+        <div class="usa-card__header">
+            <h2 class="usa-card__heading">{{ instance.title }}</h2>
+        </div>
+        <div class="usa-card__media usa-card__media--exdent">
+            <div class="usa-card__img">
+                <img class="usa-identifier__logo-img"
+                     src="{% thumbnail instance.image 290x170 crop %}"
+                     alt="{{ instance.image.default_alt_text }}"
+                     role="img"
+                />
+            </div>
+        </div>
+        <div class="usa-card__body">
+            <p>
+                {{ instance.text }}
+            </p>
+        </div>
+        <div class="usa-card__footer">
+            {% for link in instance.uswds_card_link.all %}
+                {% if link.is_external %}
+                    <a href="{{ link.external_url }}"
+                       class="usa-button usa-link--external"
+                    >
+                {% else %}
+                    <a href="{{ link.internal.get_absolute_url }}"
+                       class="usa-button"
+                    >
+                {% endif %}
+            {{ link.link_title }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</li>

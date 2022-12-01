@@ -66,3 +66,6 @@ class SiteFooterSocialModel(CMSPlugin):
 
     def __str__(self):
         return "Site Footer - Agency"
+
+    class Meta:
+        verbose_name = _("Site Footer - Agency")

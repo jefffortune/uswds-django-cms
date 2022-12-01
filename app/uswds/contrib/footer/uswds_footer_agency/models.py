@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from filer.fields.image import FilerImageField
 
+
 from uswds.models import USWDSLink
 
 
@@ -54,6 +55,9 @@ class SiteFooterAgencyModel(CMSPlugin):
 
     def __str__(self):
         return "Site Footer - Agency"
+
+    class Meta:
+        verbose_name= _( "Site Footer - Agency")
 
 
 class SiteFooterAgencyMenuLinks(USWDSLink):
