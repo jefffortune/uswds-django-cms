@@ -109,6 +109,9 @@ class USWDSFlagCardLink(USWDSLink):
 
 
 class USWDSCardGrid(CMSPlugin):
+    class Meta:
+        verbose_name = _('Card grid')
+
     title = models.CharField(
         blank=False,
         max_length=255,
@@ -128,7 +131,7 @@ class USWDSCardGrid(CMSPlugin):
     )
 
     def __unicode__(self):
-        return _(self.title)
+        return _(self.title) if self.title else _("Card grid")
 
     def __str__(self):
-        return self.title
+        return self.title if self.title else "Card grid"

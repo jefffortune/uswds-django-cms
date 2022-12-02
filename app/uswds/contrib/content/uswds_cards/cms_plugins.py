@@ -3,6 +3,7 @@ from cms.plugin_pool import plugin_pool
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
+
 from .models import (
     USWDSCard,
     USWDSCardGrid,
@@ -19,7 +20,6 @@ class USWDSCardBasePlugin(CMSPluginBase):
     allow_children = False
     module = _("Cards")
     require_parent = True
-    parent_classes = []
 
     change_form_template = "uswds/admin/change_form/admin-card-tabs.html"
 

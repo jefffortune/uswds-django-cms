@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     'uswds',
     'uswds.contrib.content.uswds_cards',
     'uswds.contrib.content.uswds_cta',
+    'uswds.contrib.content.uswds_graphic_list',
     'uswds.contrib.content.uswds_hero',
     'uswds.contrib.footer.uswds_footer_agency',
     'uswds.contrib.footer.uswds_footer_ribbon',

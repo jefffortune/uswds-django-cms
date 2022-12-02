@@ -1,0 +1,11 @@
+{% load cms_tags %}
+<section class="usa-graphic-list usa-section usa-section--dark">
+    <div class="grid-container">
+        <h2 class="font-heading-xl margin-bottom-3 margin-top-0">{{ instance.title }}</h2>
+        <div class="grid-row">
+            {% for plugin in instance.child_plugin_instances %}
+                {% render_plugin plugin %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

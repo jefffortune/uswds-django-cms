@@ -1,0 +1,12 @@
+{% load thumbnail %}
+<div class="usa-media-block tablet:grid-col desktop:grid-col-6 margin-top-3">
+    <img class="usa-media-block__img"
+         src="{% thumbnail instance.image 98x98 crop %}"
+         alt="{{ instance.image.default_alt_text }}"
+         role="img"
+    />
+    <div class="usa-media-block__body">
+        <h2 class="usa-graphic-list__heading">{{ instance.title }}</h2>
+        <p>{{ instance.text }}</p>
+    </div>
+</div>
