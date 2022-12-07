@@ -79,15 +79,17 @@ MIDDLEWARE = [
 ]
 INSTALLED_APPS = [
     # Current Applications
-    'core',
+
     'uswds',
     'uswds.contrib.content.uswds_cards',
     'uswds.contrib.content.uswds_cta',
     'uswds.contrib.content.uswds_graphic_list',
     'uswds.contrib.content.uswds_hero',
+    'uswds.contrib.header.uswds_header',
     'uswds.contrib.footer.uswds_footer_agency',
     'uswds.contrib.footer.uswds_footer_ribbon',
     'uswds.contrib.footer.uswds_footer_social',
+    'uswds_theme',
     'djangocms_admin_style',
     # Django Apps
     'django.contrib.admin',
@@ -101,26 +103,7 @@ INSTALLED_APPS = [
     # Django-cms Apps
     'cms',
     # 'django_extensions',
-    # 'djangocms_alias',
-    'djangocms_frontend',
-    # Leaving these incase they fit a use case down the line.
-    # 'djangocms_frontend.contrib.accordion',
-    # 'djangocms_frontend.contrib.alert',
-    # 'djangocms_frontend.contrib.badge',
-    # 'djangocms_frontend.contrib.card',
-    # 'djangocms_frontend.contrib.collapse',
-    # 'djangocms_frontend.contrib.content',
-    # 'djangocms_frontend.contrib.grid',
-    # 'djangocms_frontend.contrib.image',
-    # 'djangocms_frontend.contrib.jumbotron',
-    # 'djangocms_frontend.contrib.link',
-    # 'djangocms_frontend.contrib.listgroup',
-    # 'djangocms_frontend.contrib.media',
-    # 'djangocms_frontend.contrib.navigation',
-    # 'djangocms_frontend.contrib.tabs',
-    # 'djangocms_frontend.contrib.utilities',
-    # 'djangocms_icon', # has a good inline ckeditor plugin example.
-    # 'djangocms_pageadmin',  # remove this if you'd like the traditional CMS page tree
+    # 'djangocms_frontend',
     'djangocms_text_ckeditor',
     # Community Django Packages
     'easy_thumbnails',
@@ -128,11 +111,30 @@ INSTALLED_APPS = [
     'menus',
     'parler',
     'sekizai',
+    # 'parler',
+    'taggit',
+    'taggit_autosuggest',
+    'meta',
+    'sortedm2m',
+    'core',
     # 'storages',
     'treebeard',
     'adminsortable2',
 ]
 
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
+)
+
+META_SITE_PROTOCOL = 'https'  # set 'http' for non ssl enabled websites
+META_USE_SITES = True
+META_USE_OG_PROPERTIES=True
+META_USE_TWITTER_PROPERTIES=True
+META_USE_GOOGLEPLUS_PROPERTIES=True # django-meta 1.x+
+META_USE_SCHEMAORG_PROPERTIES=True  # django-meta 2.x+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -169,7 +171,8 @@ CKEDITOR_SETTINGS_BASIC_TEXT = {
     'language': '{{ language }}',
     'toolbar_HTMLField': [
         ['Undo', 'Redo'],
-        ['Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+        ['Bold', 'Italic', 'Underline', '-', 'Subscript',
+            'Superscript', '-', 'RemoveFormat'],
     ],
     'skin': 'moono-lisa',
 }

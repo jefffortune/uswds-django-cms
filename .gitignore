@@ -9,7 +9,7 @@ db.sqlite3
 
 /backups
 
-
+node_modules
 # OS-specific patterns - add your own here
 .DS_Store
 .DS_Store?

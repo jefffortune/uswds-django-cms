@@ -1,0 +1,33 @@
+{% load menu_tags %}
+<ul class="usa-nav__primary usa-accordion">
+    {% for child in children %}
+        <li class="usa-nav__primary-item{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
+            {% if child.children %}
+                <button
+                    type="button"
+                    class="usa-accordion__button usa-nav__link {% if child.selected or child.ancestor %}usa-current{% endif %}"
+                    aria-expanded="false"
+                    aria-controls="menu-id-{{child.id}}"
+                >
+                    <span>{{ child.get_menu_title }}</span>
+                </button>
+                <ul id="menu-id-{{child.id}}" class="grid-row flex-wrap usa-nav__submenu usa-megamenu">
+                    <li class="grid-col-4 usa-nav__submenu-item{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
+                        <a class="{% if child.selected or child.ancestor %}usa-current{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+                            <span>
+                                {{ child.get_menu_title }}
+                            </span>
+                        </a>
+                    </li>
+                    {% show_menu from_level to_level extra_inactive extra_active "menu/sub_menu.html" "" "" child %}
+                </ul>
+                {% else %}
+                    <a class="usa-nav-link {% if child.selected or child.ancestor %}usa-current{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+                        <span>
+                            {{ child.get_menu_title }}
+                        </span>
+                    </a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

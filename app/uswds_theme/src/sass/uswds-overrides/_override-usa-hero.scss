@@ -1,0 +1,21 @@
+@use "uswds-core" as *;
+
+// Custom usa-hero overrides using USWDS mixins and other settings.
+.usa-hero {
+  margin: 0 -50vw;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  overflow: hidden;
+
+  @include at-media("desktop-lg") {
+    min-height: units('mobile-lg');
+  }
+}
+
+.usa-hero__heading {
+  @include u-font-family('ui');
+  font-size: size("ui", 12);
+  color: color('accent-warm-light');
+}

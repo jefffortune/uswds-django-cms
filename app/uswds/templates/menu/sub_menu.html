@@ -1,0 +1,10 @@
+{% load menu_tags %}
+{% for child in children %}
+    <li class="usa-nav__submenu-item{% if child.selected %} usa-current{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}{% if instance.header_type == "mega_menu" %} tablet:display-inline-block{% endif %}">
+        <a class="{% if instance.header_type == "mega_menu" %}tablet:display-inline-block{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+            <span>
+               {{ child.get_menu_title }}
+            </span>
+        </a>
+    </li>
+{% endfor %}

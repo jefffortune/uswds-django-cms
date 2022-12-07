@@ -1,0 +1,1 @@
+"use strict";!function(t,n,a){t.behaviors.uswdsA11YTabsInit={attach:function(t,n){window.addEventListener("DOMContentLoaded",()=>{new A11yTabs(".c-tabs__list",'[role="tabpanel"]',0)})}}}(Drupal,drupalSettings,once);

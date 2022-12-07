@@ -1,0 +1,62 @@
+// Include core in order to use USWDS mixins etc...
+@use "uswds-core" as *;
+// Based on https://github.com/AgnosticUI/a11y-tabs, converted to BEM.
+
+.c-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+// Tabs list styles
+.c-tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  border: 2px solid color("primary");
+  border-bottom: 0;
+
+  @include at-media("desktop") {
+    flex-direction: row;
+    border: 0;
+    border-bottom: 2px solid color("primary");
+  }
+}
+
+.c-tabs__button {
+  border-radius: 0;
+  margin: 0;
+  color:  color("primary");
+  position: relative;
+  background-color: color("white");
+  cursor: pointer;
+  border: 0;
+  border-bottom: units(2px) solid color("primary");
+
+  @include at-media("desktop") {
+    border: 2px solid color("primary");
+    border-bottom: 0;
+    top: units(2px);
+    margin: 0 units(2) 0 0;
+  }
+
+  &:hover,
+  &.active {
+    color: color("white");
+    background-color: color("primary");
+  }
+
+  &:focus {
+    isolation: isolate;
+  }
+}
+
+.c-tabs__item {
+  &:focus {
+    isolation: isolate;
+    cursor: pointer;
+  }
+}
+
+.c-tabs__panel {
+  @include u-padding-top(3);
+}

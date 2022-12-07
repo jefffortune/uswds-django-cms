@@ -19,17 +19,18 @@ from django.contrib import admin
 from django.urls import re_path, include, path
 
 urlpatterns = [
-    re_path(r'^admin/', admin.site.urls),
-    re_path(r'^', include('cms.urls')),
+    re_path('^admin/', admin.site.urls),
+    re_path('^taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    re_path('^', include('cms.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+                          )
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.
+                          STATIC_ROOT)
 if settings.DEBUG_TOOLBAR:
     import debug_toolbar
 
-    urlpatterns += [
-        re_path(r'^__debug__/', include(debug_toolbar.urls)),
-    ]
+    urlpatterns += [re_path('^__debug__/', include(debug_toolbar.urls))]

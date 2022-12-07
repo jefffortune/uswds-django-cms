@@ -1,0 +1,23 @@
+// Include core in order to use USWDS mixins etc...
+@use "uswds-core" as *;
+
+details {
+  @include u-margin-bottom(4);
+
+  > summary {
+    background-color: color("info-light");
+    cursor: pointer;
+    @include u-padding(2);
+  }
+
+ > summary > * {
+    display: inline;
+  }
+
+  > div {
+    border: units(2px) solid color("info-light");
+    margin-top: 0;
+    @include u-padding-x(3);
+    @include u-padding-y(5);
+  }
+}

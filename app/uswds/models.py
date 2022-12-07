@@ -7,8 +7,9 @@ class USWDSLink(models.Model):
     link_title = models.CharField(max_length=255)
     internal = PageField(
         blank=True,
-        null=True
+        null=True,
     )
+
     is_external = models.BooleanField(
         default=False,
         null=True,

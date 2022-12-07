@@ -34,6 +34,14 @@ services:
     portforward: true
   node:
     type: node:16
+    scanner: false
+    ssl: true
+    sslExpose: false
+    globals:
+      gulp-cli: latest
+    overrides:
+      ports:
+        - '32654:32654'
 
 tooling:
   'db-export [file]':
@@ -66,6 +74,14 @@ tooling:
     description: Used for django-admin <commands>
     cmd: django-admin
     service: appserver
+  gulp:
+    service: node
+    dir: '/app/app/uswds_theme'
+    cmd: gulp
+  gulp-compile:
+    service: node
+    dir: '/app/app/uswds_theme'
+    cmd: gulp compile
   manage:
     cmd: python app/manage.py
     description: Used for manage.py <commands>
@@ -75,6 +91,8 @@ tooling:
     service: node
   npm:
     description: Used for npm <commands>
+    service: node
+  npx:
     service: node
   pip:
     description: Used for pip <commands>
