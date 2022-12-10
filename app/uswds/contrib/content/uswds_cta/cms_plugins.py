@@ -15,10 +15,10 @@ class CTALinkInline(admin.StackedInline):
     exclude = ['order']
 
 @plugin_pool.register_plugin
-class CTATextPlugin(CMSPluginBase):
+class USWDSCTATextPlugin(CMSPluginBase):
     allow_children = False
     model = USWDSCTAText
-    name = _("CTA Text")
+    name = _("CTA text")
     module = _("CTA")
     inlines = [CTALinkInline]
     text_enabled = True
@@ -51,7 +51,7 @@ class CTATextPlugin(CMSPluginBase):
     ]
 
     def render(self, context, instance, placeholder):
-        context = super(CTATextPlugin, self).render(context, instance, placeholder)
+        context = super(USWDSCTATextPlugin, self).render(context, instance, placeholder)
         link = instance.uswds_cta_link.all()
         context.update({
             'link': link,

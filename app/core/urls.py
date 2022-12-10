@@ -19,8 +19,8 @@ from django.contrib import admin
 from django.urls import re_path, include, path
 urlpatterns = [
     re_path('^admin/', admin.site.urls),
-    re_path(r'^filebrowser_filer/', include('ckeditor_filebrowser_filer.urls')),
-    re_path('^taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    # re_path(r'^filebrowser_filer/', include('ckeditor_filebrowser_filer.urls')),
+    # re_path('^taggit_autosuggest/', include('taggit_autosuggest.urls')),
     re_path( '^', include('cms.urls')),
     # path('', include('djangocms_blog.taggit_urls'))
 ]

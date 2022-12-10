@@ -91,6 +91,8 @@ INSTALLED_APPS = [
     'uswds.contrib.footer.uswds_footer_agency',
     'uswds.contrib.footer.uswds_footer_ribbon',
     'uswds.contrib.footer.uswds_footer_social',
+    'uswds.contrib.menu.uswds_breadcrumb',
+    'uswds.contrib.menu.uswds_sidemenu',
     'uswds_theme',
     'djangocms_admin_style',
     # Django Apps
@@ -110,7 +112,7 @@ INSTALLED_APPS = [
     # Community Django Packages
     'easy_thumbnails',
     'filer',
-    'ckeditor_filebrowser_filer',
+    # 'ckeditor_filebrowser_filer',
     'menus',
     'sekizai',
     'core',
@@ -119,8 +121,8 @@ INSTALLED_APPS = [
     'adminsortable2',
     # 'aldryn_apphooks_config',
     # 'parler',
-    'taggit',
-    'taggit_autosuggest',
+    # 'taggit',
+    # 'taggit_autosuggest',
     # 'meta',
     # 'sortedm2m',
     # 'djangocms_blog',
@@ -150,44 +152,17 @@ META_USE_OG_PROPERTIES=True
 META_USE_TWITTER_PROPERTIES=True
 META_USE_GOOGLEPLUS_PROPERTIES=True # django-meta 1.x+
 META_USE_SCHEMAORG_PROPERTIES=True  # django-meta 2.x+
+
+
+
+
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASE_ENGINE = env(
     'DATABASE_ENGINE',
     'django.db.backends.postgresql'
 )
-
-
-CKEDITOR_SETTINGS = {
-    'language': '{{ language }}',
-    'toolbar_CMS': [
-        ['Undo', 'Redo'],
-        ['Format','image',],
-        ['cmsplugins', '-', 'ShowBlocks'],
-        {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-        {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
-        ['Bold', 'Italic', 'Underline'],
-        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
-            'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-        ['Link', 'Unlink'],
-        ['RemoveFormat', 'Source']
-    ],
-    'extraPlugins': 'image,',
-    # 'removePlugins': 'image'
-}
-
-CKEDITOR_SETTINGS_BASIC_TEXT = {
-    'language': '{{ language }}',
-    'toolbar_HTMLField': [
-        ['Undo', 'Redo'],
-        ['cmsplugins', '-', 'ShowBlocks'],
-        ['Bold', 'Italic', 'Underline', '-', 'Subscript',
-            'Superscript', '-', 'RemoveFormat'],
-    ],
-    'skin': 'moono-lisa',
-}
-
 DATABASE_HOST = env('DATABASE_HOST')
 DATABASE_PORT = env('DATABASE_PORT')
 DATABASE_USER = env('DATABASE_USER')
@@ -206,10 +181,12 @@ DATABASES = {
         'ATOMIC_REQUESTS': False,
     }
 }
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
-
 LANGUAGE_CODE = 'en'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -218,18 +195,12 @@ USE_TZ = True
 
 
 # ***** AUTH *****
-
 SESSION_COOKIE_AGE = 14400  # 4 hr
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # Password validation
-# https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
-
-
-# Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
-
 if not DEBUG:
     AUTH_PASSWORD_VALIDATORS = [
         {
@@ -244,7 +215,6 @@ if not DEBUG:
     ]
 
 # ***** STATIC FILES *****
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static-collection')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -263,7 +233,6 @@ STATICFILES_FINDERS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ***** MEDIA FILES / UPLOADS *****
-
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # S3_BUCKET = env('S3_BUCKET', '')
@@ -294,7 +263,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = "/media/"
 
 # ***** TEMPLATES *****
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -323,12 +291,8 @@ TEMPLATES = [
     },
 ]
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 # ***** CMS *****
+# https://docs.django-cms.org/en/latest/
 # CMS_CONFIRM_VERSION4 = True
 CMS_PAGE_CACHE = True
 CMS_PLUGIN_CACHE = True
@@ -359,18 +323,149 @@ CMS_TEMPLATES = (
     ('page__document.html', 'Document Page'),
 )
 
+# ***** CMS Placeholders config*****
 CMS_PLACEHOLDER_CONF = {
-    "page__document.html content": {
-        "name": _("Content"),
-        "plugins": ["TextPlugin"],
+    'header': {
+        'name': _('Site header'),
+        'plugins': [
+            'USWDSHeaderPlugin'
+        ],
+        'default_plugins': [
+            {
+                'plugin_type': 'USWDSHeaderPlugin',
+                'values': {
+                    'name':'USWDS Django-cms',
+                    'show_search': False,
+                },
+            },
+        ],
     },
+    'breadcrumb': {
+        'name': _('Site breadcrumb'),
+        'plugins': [
+            {
+                'USWDSBreadcrumbPlugin',
+            }
+        ],
+        'default_plugins': [
+            {
+                'plugin_type': 'USWDSBreadcrumbPlugin',
+            }
+        ]
+    },
+    'sidemenu': {
+        'name': _('Site side menu'),
+        'plugins': [
+            {
+                'USWDSSideMenuPlugin',
+            }
+        ],
+        'default_plugins': [
+            {
+                'plugin_type': 'USWDSSideMenuPlugin',
+            }
+        ]
+    },
+    'content': {
+        'name': _('Page content'),
+        'plugins': [
+            'USWDSCardGrid',
+            'USWDSFlagCardGrid',
+            'USWDSCTATextPlugin',
+            'USWDSGraphicGridPlugin',
+            'USWDSHeroPlugin',
+        ]
+    },
+    'page__document.html content': {
+        'name': _('Page content'),
+        'plugins': [
+            'TextPlugin'
+        ],
+        'default_plugins': [
+            {
+                'plugin_type': 'TextPlugin',
+                'values': {
+                    'body':'<h2>First section...</h2>',
+                },
+            },
+        ],
+    },
+    'page__internal.html content': {
+        'name': _('Page content'),
+        'plugins': [
+            'TextPlugin'
+        ],
+        'default_plugins': [
+            {
+                'plugin_type': 'TextPlugin',
+                'values': {
+                    'body': '<h2>First section...</h2>',
+                },
+            },
+        ],
+    },
+    'footer': {
+        'name': _('Site Footer'),
+        'plugins': [
+            'SiteFooterAgencyPlugin',
+            'SiteFooterRibbonPlugin',
+            'SiteFooterSocialPlugin',
+        ],
+        'default_plugins': [
+            {
+                'plugin_type':  'SiteFooterSocialPlugin',
+                'values': {
+                    'agency_name': 'USWDS Django-cms',
+                    'facebook_url': 'https://facebook.com',
+                    'twitter_url': 'https://twitter.com',
+                    'youtube_url': 'https://youtube.com',
+                    'instagram_url': 'https://instagram.com',
+                    'rss_url': 'https://google.com',
+                    'contact_title': 'Agency Contact',
+                    'contact_phone_label': '555.555.5555',
+                    'contact_phone': '555-555-55555',
+                    'contact_email_label': 'admin@agency.gov',
+                    'contact_email': 'admin@agency.gov',
+                }
+            }
+        ]
+    }
+}
+
+# ***** CMS CK Editor*****
+CKEDITOR_SETTINGS = {
+    'language': '{{ language }}',
+    'toolbar_CMS': [
+        ['Undo', 'Redo'],
+        ['Format','image',],
+        ['cmsplugins', '-', 'ShowBlocks'],
+        {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+        {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+        ['Bold', 'Italic', 'Underline'],
+        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
+            'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+        ['Link', 'Unlink'],
+        ['RemoveFormat', 'Source']
+    ],
+    'extraPlugins': 'image,',
+    # 'removePlugins': 'image'
+}
+
+CKEDITOR_SETTINGS_BASIC_TEXT = {
+    'language': '{{ language }}',
+    'toolbar_HTMLField': [
+        ['Undo', 'Redo'],
+        ['cmsplugins', '-', 'ShowBlocks'],
+        ['Bold', 'Italic', 'Underline', '-', 'Subscript',
+            'Superscript', '-', 'RemoveFormat'],
+    ],
+    'skin': 'moono-lisa',
 }
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
 # ***** DEBUG TOOLBAR *****
-
 DEBUG_TOOLBAR = DEBUG and env.bool('DEBUG_TOOLBAR', 0)
 
 if DEBUG_TOOLBAR:
