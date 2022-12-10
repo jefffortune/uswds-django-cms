@@ -28,10 +28,12 @@ lando start
 
 # After it has successfully shown you the start up URLs
 lando manage migrate
-lando manage createsuperuser
+lando manage loaddata uswds_fixtures
 lando restart
 ```
 
-Should now navigate to http://uswds-djangocms.lndo.site/admin to login with the user you created.
+Should now navigate to http://uswds-djangocms.lndo.site/admin ans login using the following creds: *(FOR LOCAL USE ONLY)*
+- user: `admin`
+- password: `admin`
 
 
