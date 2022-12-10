@@ -21,6 +21,7 @@ class CTATextPlugin(CMSPluginBase):
     name = _("CTA Text")
     module = _("CTA")
     inlines = [CTALinkInline]
+    text_enabled = True
 
     change_form_template = "uswds/admin/change_form/admin-cta-tabs.html"
 

@@ -1,0 +1,14 @@
+{% load menu_tags %}
+<nav class="usa-breadcrumb padding-y-0 margin-bottom-2" aria-label="Breadcrumbs,,">
+    <ol class="usa-breadcrumb__list">
+        {% for ancestor in ancestors %}
+            {% if not forloop.first and not forloop.last %}
+                <li class="usa-breadcrumb__list-item">
+                    <a href="{{ ancestor.attr.redirect_url|default:ancestor.get_absolute_url }}" class="usa-breadcrumb__link">
+                        {{ ancestor.get_menu_title }}
+                    </a>
+                </li>
+            {%  endif %}
+        {% endfor %}
+    </ol>
+</nav>

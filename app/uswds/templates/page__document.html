@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load cms_tags menu_tags sekizai_tags static i18n %}
+
+{% block content %}
+    <div class="usa-section">
+        <div class="grid-container grid-gap">
+            <div class="grid-row grid-gap">
+                <div class="usa-layout-docs__sidenav desktop:grid-col-3">
+                     {% show_sub_menu 3 0 100 "menu/sidemenu.html" %}
+                </div>
+                <div class="usa-layout-docs__main usa-in-page-nav-container desktop:grid-col-9 usa-prose usa-layout-docs">
+                    <aside class="usa-in-page-nav"
+                           data-title-text="On this page"
+                           data-title-heading-level="h4"
+                           data-scroll-offset="0"
+                           data-root-margin="0px 0px 0px 0px"
+                           data-threshold="1"
+                    ></aside>
+                    <main class="usa-prose" id="main-content">
+                        {% show_breadcrumb %}
+                        <h1 class="margin-top-0">{% page_attribute page_title %}</h1>
+                        {% placeholder "content" %}
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

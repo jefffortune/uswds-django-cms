@@ -1,10 +1,16 @@
 {% load menu_tags %}
+
 {% for child in children %}
-    <li class="usa-nav__submenu-item{% if child.selected %} usa-current{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}{% if instance.header_type == "mega_menu" %} tablet:display-inline-block{% endif %}">
-        <a class="{% if instance.header_type == "mega_menu" %}tablet:display-inline-block{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+    <li class="usa-nav__submenu-item{% if child.selected %} usa-current{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %} padding-left-105">
+        <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
             <span>
                {{ child.get_menu_title }}
             </span>
         </a>
+        {% if child.children %}
+            <ul class="padding-left-0">
+                {% show_menu from_level to_level extra_inactive extra_active "menu/sub_menu.html" "" "" child %}
+            </ul>
+        {% endif %}
     </li>
 {% endfor %}

@@ -25,34 +25,32 @@
                     {% page_attribute "page_title" %}
                 {% endblock %}
             </title>
-            <link rel="stylesheet"
-                  href="{% static '/css/styles.css' %}" referrerpolicy="no-referrer"/>
+
             {% block base_css %}{% endblock %}
         {% endspaceless %}
         {% render_block 'css' %}
         {% spaceless %}
             {% block page_head %}{% endblock %}
+            <link rel="stylesheet"
+                  href="{% static '/css/styles.css' %}" referrerpolicy="no-referrer"/>
         </head>
         <body {% block body_attrs %}{% endblock %}>
         {% endspaceless %}
         {% cms_toolbar %}
         {% spaceless %}
             {% block navbar %}{% endblock %}
+            <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+            {% include "global/usa-banner.html" %}
+            {% static_placeholder "header" %}
+            <div class="usa-overlay"></div>
             {% block content %}
-                <a class="usa-skipnav" href="#main-content">Skip to main content</a>
-                {% include "global/usa-banner.html" %}
-                {% static_placeholder "header" %}
-                <div class="usa-overlay"></div>
-                <main id="main-content">
-                    {% placeholder "content" %}
-                </main>
-                <footer class="usa-footer">
+            {% endblock%}
+            <footer class="usa-footer">
                     <div class="grid-container usa-footer__return-to-top">
                         <a href="#">Return to top</a>
                     </div>
                     {% static_placeholder "footer" %}
                 </footer>
-            {% endblock content %}
             {% block base_js %}{% endblock %}
         {% endspaceless %}
         {% render_block 'js' %}

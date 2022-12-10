@@ -1,0 +1,13 @@
+{% load menu_tags %}
+<nav aria-label="Secondary navigation">
+    <ul class="usa-sidenav">
+        {% for child in children %}
+            <li class="usa-sidenav__item">
+                <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}" class="{% if child.selected or child.ancestor %}usa-current{% endif %}">{{ child.get_menu_title }}</a>
+                {% if child.children %}
+                    {% show_menu from_level to_level extra_inactive extra_active "menu/sidemenu-sub_menu.html" "" "" child %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

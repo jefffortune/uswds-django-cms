@@ -17,20 +17,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import re_path, include, path
-
 urlpatterns = [
     re_path('^admin/', admin.site.urls),
+    re_path(r'^filebrowser_filer/', include('ckeditor_filebrowser_filer.urls')),
     re_path('^taggit_autosuggest/', include('taggit_autosuggest.urls')),
-    re_path('^', include('cms.urls')),
+    re_path( '^', include('cms.urls')),
+    # path('', include('djangocms_blog.taggit_urls'))
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
-                          )
+        )
     urlpatterns += static(settings.STATIC_URL, document_root=settings.
-                          STATIC_ROOT)
+        STATIC_ROOT)
 if settings.DEBUG_TOOLBAR:
     import debug_toolbar
-
     urlpatterns += [re_path('^__debug__/', include(debug_toolbar.urls))]

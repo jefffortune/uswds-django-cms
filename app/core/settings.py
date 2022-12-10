@@ -8,6 +8,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 
+
+from django.utils.translation import gettext_lazy as _
 from environs import Env
 
 
@@ -103,24 +105,37 @@ INSTALLED_APPS = [
     # Django-cms Apps
     'cms',
     # 'django_extensions',
-    # 'djangocms_frontend',
+    'djangocms_frontend',
     'djangocms_text_ckeditor',
     # Community Django Packages
     'easy_thumbnails',
     'filer',
+    'ckeditor_filebrowser_filer',
     'menus',
-    'parler',
     'sekizai',
-    # 'parler',
-    'taggit',
-    'taggit_autosuggest',
-    'meta',
-    'sortedm2m',
     'core',
     # 'storages',
     'treebeard',
     'adminsortable2',
+    # 'aldryn_apphooks_config',
+    # 'parler',
+    'taggit',
+    'taggit_autosuggest',
+    # 'meta',
+    # 'sortedm2m',
+    # 'djangocms_blog',
 ]
+
+TEXT_INLINE_EDITING = True
+
+# BLOG_ENABLE_THROUGH_TOOLBAR_MENU = True
+# BLOG_NAME = "Article"
+# BLOG_AUTO_APP_TITLE = BLOG_NAME
+# BLOG_AUTO_BLOG_TITLE = BLOG_NAME
+# BLOG_AUTO_NAMESPACE = BLOG_NAME
+# BLOG_PLUGIN_MODULE_NAME = _(BLOG_NAME)
+# BLOG_LATEST_ENTRIES_PLUGIN_NAME_CACHED = _("Latest Articles - Cache")
+# BLOG_AUTHOR_POSTS_PLUGIN_NAME = _("Author Articles")
 
 THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',
@@ -143,34 +158,30 @@ DATABASE_ENGINE = env(
     'django.db.backends.postgresql'
 )
 
+
 CKEDITOR_SETTINGS = {
-    'default': {
-        'toolbar': 'Basic',
-        'toolbar_Basic': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
-                'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
-        ]
-    },
     'language': '{{ language }}',
     'toolbar_CMS': [
         ['Undo', 'Redo'],
-        ['Format'],
+        ['Format','image',],
+        ['cmsplugins', '-', 'ShowBlocks'],
+        {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+        {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
         ['Bold', 'Italic', 'Underline'],
         ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
             'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
         ['Link', 'Unlink'],
         ['RemoveFormat', 'Source']
     ],
-    'skin': 'moono-lisa',
+    'extraPlugins': 'image,',
+    # 'removePlugins': 'image'
 }
 
 CKEDITOR_SETTINGS_BASIC_TEXT = {
     'language': '{{ language }}',
     'toolbar_HTMLField': [
         ['Undo', 'Redo'],
+        ['cmsplugins', '-', 'ShowBlocks'],
         ['Bold', 'Italic', 'Underline', '-', 'Subscript',
             'Superscript', '-', 'RemoveFormat'],
     ],
@@ -340,15 +351,23 @@ CMS_LANGUAGES = {
     },
 }
 
-CMS_PAGE_TEMPLATE = 'base.html'
+CMS_PAGE_TEMPLATE = 'page__internal.html'
 
 CMS_TEMPLATES = (
-    (CMS_PAGE_TEMPLATE, 'Page'),
+    ('page__landing.html', 'Landing Page'),
+    (CMS_PAGE_TEMPLATE, 'Internal Page'),
+    ('page__document.html', 'Document Page'),
 )
+
+CMS_PLACEHOLDER_CONF = {
+    "page__document.html content": {
+        "name": _("Content"),
+        "plugins": ["TextPlugin"],
+    },
+}
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-CMS_PLACEHOLDER_CONF = {}
 
 # ***** DEBUG TOOLBAR *****
 

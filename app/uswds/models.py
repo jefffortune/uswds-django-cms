@@ -26,9 +26,6 @@ class USWDSLink(models.Model):
         null=False,
     )
 
-    def __unicode__(self):
-        return _(self.link_title)
-
     def __str__(self):
         return self.link_title
 

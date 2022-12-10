@@ -11,3 +11,13 @@
 @forward "uswds-theme-custom-styles";
 
 // ****** Do not write any custom CSS on this file ****** //
+@forward "uswds-overrides/ck-editor";
+
+.cms-icon-logo:before, div.cms .cms-toolbar-item-logo a:before {
+  content: '';
+  display: inline-block;
+  margin-top: 4px;
+  background-image: url("/assets/img/bixal-logo-full.svg");
+  height: 22px;
+  width: 108px;
+}

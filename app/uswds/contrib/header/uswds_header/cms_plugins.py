@@ -79,5 +79,5 @@ class USWDSHeaderPlugin(CMSPluginBase):
         })
         return super().render_change_form(request, context, add, change, form_url, obj)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
