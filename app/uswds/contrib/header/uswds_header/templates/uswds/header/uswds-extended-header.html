@@ -2,27 +2,20 @@
 <div class="usa-overlay"></div>
 <header class="usa-header usa-header--extended {% if instance.header_type == "mega_menu" %} usa-header--megamenu{% endif %}">
     <div class="usa-navbar">
-        {% if instance.icon %}
-            <div class="usa-logo display-flex flex-row flex-align-center"
-                 id="-logo">
+        <div class="usa-logo display-flex flex-row flex-align-center"
+             id="-logo">
+            {% if instance.icon %}
                 <img class="site-logo"
                      src="{{ instance.icon.url }}"
                      alt="{{ instance.icon.default_alt_text }}"
                      style="max-height: 40px; max-width: 120px"
                      title="{{ instance.icon.title }}">
-                {% if instance.name %}
-                    <em class="usa-logo__text text-base-darkest flex-align-self-end margin-left-1">
-                        <a href="/" title="Home">{{ instance.name }}</a>
-                    </em>
-                {% endif %}
-            </div>
-        {% elif instance.name %}
-            <em class="usa-logo__text text-base-darkest">
-                <a href="/" title="Home">
-                    {{ instance.name }}
-                </a>
-            </em>
-        {% endif %}
+            {% endif %}
+            {% if instance.name %}
+                <em class="usa-logo__text text-base-darkest flex-align-self-end margin-left-1"><a href="/"
+                                                                                                  title="Home">{{ instance.name }}</a></em>
+            {% endif %}
+        </div>
         <button type="button" class="usa-menu-btn">Menu</button>
     </div>
     <nav aria-label="Primary navigation" class="usa-nav">
@@ -30,7 +23,7 @@
             <button type="button" class="usa-nav__close">
                 <img src="{% static "/assets/img/usa-icons/close.svg" %}" role="img" alt="Close"/>
             </button>
-             {% show_menu 0 100 0 100 %}
+            {% show_menu 0 100 0 100 %}
             {% if instance.show_search or instance.uswds_action_link %}
                 <div class="usa-nav__secondary">
                     <section aria-label="Search component">
@@ -50,21 +43,21 @@
                             </ul>
                         {% endif %}
                         {% if instance.show_search %}
-                        <form class="usa-search usa-search--small" role="search">
-                            <label class="usa-sr-only" for="search-field">Search</label>
-                            <input class="usa-input"
-                                   id="search-field"
-                                   type="search"
-                                   name="search"
-                                   placeholder="{{ instance.search_placeholder }}"
-                            />
-                            <button class="usa-button" type="submit">
-                                <img src="{% static "/assets/img/usa-icons-bg/search--white.svg" %}"
-                                     class="usa-search__submit-icon"
-                                     alt="Search"
+                            <form class="usa-search usa-search--small" role="search">
+                                <label class="usa-sr-only" for="search-field">Search</label>
+                                <input class="usa-input"
+                                       id="search-field"
+                                       type="search"
+                                       name="search"
+                                       placeholder="{{ instance.search_placeholder }}"
                                 />
-                            </button>
-                        </form>
+                                <button class="usa-button" type="submit">
+                                    <img src="{% static "/assets/img/usa-icons-bg/search--white.svg" %}"
+                                         class="usa-search__submit-icon"
+                                         alt="Search"
+                                    />
+                                </button>
+                            </form>
                         {% endif %}
                     </section>
                 </div>

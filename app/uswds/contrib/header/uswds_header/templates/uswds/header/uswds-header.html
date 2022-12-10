@@ -3,26 +3,20 @@
 <header class="usa-header usa-header--basic{% if instance.header_type == "mega_menu" %} usa-header--megamenu{% endif %}">
     <div class="usa-nav-container">
         <div class="usa-navbar">
-            {% if instance.icon %}
-                <div class="usa-logo display-flex flex-row flex-align-center"
-                     id="-logo">
+            <div class="usa-logo display-flex flex-row flex-align-center"
+                 id="-logo">
+                {% if instance.icon %}
                     <img class="site-logo"
                          src="{{ instance.icon.url }}"
                          alt="{{ instance.icon.default_alt_text }}"
                          style="max-height: 40px; max-width: 120px"
                          title="{{ instance.icon.title }}">
-                    {% if instance.name %}
-                        <em class="usa-logo__text text-base-darkest flex-align-self-end margin-left-1"><a href="/"
-                                                                                                          title="Home">{{ instance.name }}</a></em>
-                    {% endif %}
-                </div>
-            {% elif instance.name %}
-                <em class="usa-logo__text text-base-darkest">
-                    <a href="/" title="Home">
-                        {{ instance.name }}
-                    </a>
-                </em>
-            {% endif %}
+                {% endif %}
+                {% if instance.name %}
+                    <em class="usa-logo__text text-base-darkest flex-align-self-end margin-left-1"><a href="/"
+                                                                                                      title="Home">{{ instance.name }}</a></em>
+                {% endif %}
+            </div>
             <button type="button" class="usa-menu-btn">Menu</button>
         </div>
         <nav aria-label="Primary navigation" class="usa-nav">

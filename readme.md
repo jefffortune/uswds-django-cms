@@ -32,7 +32,9 @@ lando manage loaddata uswds_fixtures
 lando restart
 ```
 
-Should now navigate to http://uswds-djangocms.lndo.site/admin ans login using the following creds: *(FOR LOCAL USE ONLY)*
+Should now navigate to http://uswds-djangocms.lndo.site/admin and login using the following creds: 
+
+*(FOR LOCAL USE ONLY)*
 - user: `admin`
 - password: `admin`
 
